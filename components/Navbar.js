@@ -48,7 +48,7 @@ export default function Navbar() {
           }`}
         >
           <Link
-            href="/my-plan"
+            href="/my-plan?tab=plan"
             aria-label={`Plan: ${planCount} workouts`}
             className={`rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-foreground transition-transform hover:scale-105 active:scale-95 ${
               planBumping ? "animate-bump" : ""
@@ -57,7 +57,7 @@ export default function Navbar() {
             Plan {planCount}
           </Link>
           <Link
-            href="/my-plan"
+            href="/my-plan?tab=saved"
             aria-label={`Saved: ${savedCount} workouts`}
             className={`rounded-full border border-border-soft px-3 py-1 text-xs font-bold text-foreground transition-colors hover:border-accent hover:text-accent active:scale-95 ${
               savedBumping ? "animate-bump" : ""

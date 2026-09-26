@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { Suspense, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import { usePlan, PLAN_CAP } from "@/context/PlanContext";
 import PlanListItem from "@/components/PlanListItem";
 import EmptyState from "@/components/EmptyState";
@@ -13,8 +14,18 @@ const TABS = [
 ];
 
 export default function MyPlanPage() {
+  return (
+    <Suspense fallback={<Spinner label="Loading workouts…" />}>
+      <MyPlanContent />
+    </Suspense>
+  );
+}
+
+function MyPlanContent() {
   const { plan, saved, metrics, hydrated } = usePlan();
-  const [activeTab, setActiveTab] = useState("plan");
+  const searchParams = useSearchParams();
+  const initialTab = searchParams.get("tab") === "saved" ? "saved" : "plan";
+  const [activeTab, setActiveTab] = useState(initialTab);
 
   const list = activeTab === "plan" ? plan : saved;
 
