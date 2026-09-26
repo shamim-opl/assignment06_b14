@@ -53,3 +53,51 @@ body {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+/* Smooth in-page jumps (e.g. the hero's #library anchor link) */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Fade + rise-in for content that mounts on the client (cards, page sections) */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+.animate-fade-up {
+  animation: fade-up 0.35s ease-out both;
+}
+
+/* Small "pop" used when a counter (Plan/Saved badge) changes */
+@keyframes bump {
+  0% {
+    transform: scale(1);
+  }
+  35% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.animate-bump {
+  animation: bump 0.35s ease-out;
+}
+
+/* Respect users who've asked for less motion */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}

@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Logo from "./Logo";
 import { usePlan } from "@/context/PlanContext";
+import { useBump } from "@/lib/useBump";
 
 const links = [
   { href: "/", label: "Workout" },
@@ -12,7 +13,9 @@ const links = [
 
 export default function Navbar() {
   const pathname = usePathname();
-  const { planCount, savedCount } = usePlan();
+  const { planCount, savedCount, hydrated } = usePlan();
+  const planBumping = useBump(planCount, { enabled: hydrated });
+  const savedBumping = useBump(savedCount, { enabled: hydrated });
 
   return (
     <header className="sticky top-0 z-40 border-b border-border-soft bg-background/90 backdrop-blur">
@@ -39,18 +42,26 @@ export default function Navbar() {
           })}
         </ul>
 
-        <div className="flex items-center gap-2">
+        <div
+          className={`flex items-center gap-2 transition-opacity duration-300 ${
+            hydrated ? "opacity-100" : "opacity-0"
+          }`}
+        >
           <Link
             href="/my-plan"
             aria-label={`Plan: ${planCount} workouts`}
-            className="rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-foreground transition-transform hover:scale-105"
+            className={`rounded-full bg-accent px-3 py-1 text-xs font-bold text-accent-foreground transition-transform hover:scale-105 active:scale-95 ${
+              planBumping ? "animate-bump" : ""
+            }`}
           >
             Plan {planCount}
           </Link>
           <Link
             href="/my-plan"
             aria-label={`Saved: ${savedCount} workouts`}
-            className="rounded-full border border-border-soft px-3 py-1 text-xs font-bold text-foreground transition-colors hover:border-accent hover:text-accent"
+            className={`rounded-full border border-border-soft px-3 py-1 text-xs font-bold text-foreground transition-colors hover:border-accent hover:text-accent active:scale-95 ${
+              savedBumping ? "animate-bump" : ""
+            }`}
           >
             Saved {savedCount}
           </Link>
@@ -65,8 +76,8 @@ export default function Navbar() {
             <li key={link.href}>
               <Link
                 href={link.href}
-                className={`text-xs font-semibold uppercase tracking-wide ${
-                  active ? "text-accent" : "text-muted"
+                className={`text-xs font-semibold uppercase tracking-wide transition-colors ${
+                  active ? "text-accent" : "text-muted hover:text-foreground"
                 }`}
               >
                 {link.label}

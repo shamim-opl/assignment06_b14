@@ -5,6 +5,7 @@ import { usePlan, PLAN_CAP } from "@/context/PlanContext";
 import PlanListItem from "@/components/PlanListItem";
 import EmptyState from "@/components/EmptyState";
 import { Spinner } from "@/components/Loader";
+import { useBump } from "@/lib/useBump";
 
 const TABS = [
   { key: "plan", label: "Today's Plan" },
@@ -27,10 +28,14 @@ export default function MyPlanPage() {
       </p>
 
       {/* Metrics */}
-      <div className="mt-8 grid grid-cols-3 divide-x divide-border-soft overflow-hidden rounded-xl border border-border-soft bg-surface">
-        <MetricCard label="Exercises" value={metrics.exercises} />
-        <MetricCard label="Minutes" value={metrics.minutes} />
-        <MetricCard label="Calories" value={metrics.calories} />
+      <div
+        className={`mt-8 grid grid-cols-3 divide-x divide-border-soft overflow-hidden rounded-xl border border-border-soft bg-surface transition-opacity duration-300 ${
+          hydrated ? "opacity-100" : "opacity-0"
+        }`}
+      >
+        <MetricCard label="Exercises" value={metrics.exercises} hydrated={hydrated} />
+        <MetricCard label="Minutes" value={metrics.minutes} hydrated={hydrated} />
+        <MetricCard label="Calories" value={metrics.calories} hydrated={hydrated} />
       </div>
 
       {/* Tabs */}
@@ -40,7 +45,7 @@ export default function MyPlanPage() {
             key={tab.key}
             type="button"
             onClick={() => setActiveTab(tab.key)}
-            className={`rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wide transition-colors ${
+            className={`rounded-full px-4 py-2 text-xs font-bold uppercase tracking-wide transition-all active:scale-95 ${
               activeTab === tab.key
                 ? "bg-accent text-accent-foreground"
                 : "bg-surface-2 text-muted hover:text-foreground"
@@ -81,13 +86,20 @@ export default function MyPlanPage() {
   );
 }
 
-function MetricCard({ label, value }) {
+function MetricCard({ label, value, hydrated }) {
+  const bumping = useBump(value, { enabled: hydrated });
   return (
     <div className="flex flex-col items-center gap-1 px-4 py-5 text-center">
       <span className="text-[10px] font-bold uppercase tracking-widest text-muted">
         {label}
       </span>
-      <span className="font-display text-2xl font-bold text-foreground">{value}</span>
+      <span
+        className={`font-display text-2xl font-bold text-foreground transition-colors ${
+          bumping ? "animate-bump text-accent" : ""
+        }`}
+      >
+        {value}
+      </span>
     </div>
   );
 }
