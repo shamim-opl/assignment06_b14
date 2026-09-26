@@ -8,11 +8,14 @@ import WorkoutCard from "@/components/WorkoutCard";
 import SortDropdown from "@/components/SortDropdown";
 import { LibrarySkeleton } from "@/components/Loader";
 
+const PAGE_SIZE = 6;
+
 export default function HomePage() {
   const [workouts, setWorkouts] = useState([]);
   const [status, setStatus] = useState("loading"); // loading | ready | error
   const [sortBy, setSortBy] = useState("duration");
   const [query, setQuery] = useState("");
+  const [visibleCount, setVisibleCount] = useState(PAGE_SIZE);
 
   useEffect(() => {
     let cancelled = false;
@@ -37,6 +40,18 @@ export default function HomePage() {
     });
     return [...filtered].sort((a, b) => (b[sortBy] || 0) - (a[sortBy] || 0));
   }, [workouts, sortBy, query]);
+
+  // Reset pagination whenever the sort or search changes the result set.
+  // (Adjusting state during render, per React docs, instead of an effect.)
+  const resultsKey = `${sortBy}:${query}`;
+  const [prevResultsKey, setPrevResultsKey] = useState(resultsKey);
+  if (resultsKey !== prevResultsKey) {
+    setPrevResultsKey(resultsKey);
+    setVisibleCount(PAGE_SIZE);
+  }
+
+  const pagedWorkouts = visibleWorkouts.slice(0, visibleCount);
+  const hasMore = visibleCount < visibleWorkouts.length;
 
   return (
     <div>
@@ -121,11 +136,25 @@ export default function HomePage() {
           )}
 
           {status === "ready" && visibleWorkouts.length > 0 && (
-            <div className="grid grid-cols-2 gap-4 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
-              {visibleWorkouts.map((workout) => (
-                <WorkoutCard key={workout.id} workout={workout} />
-              ))}
-            </div>
+            <>
+              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-5 md:grid-cols-3 lg:grid-cols-4">
+                {pagedWorkouts.map((workout) => (
+                  <WorkoutCard key={workout.id} workout={workout} />
+                ))}
+              </div>
+
+              {hasMore && (
+                <div className="mt-8 flex justify-center">
+                  <button
+                    type="button"
+                    onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
+                    className="rounded-full border border-border-soft px-6 py-2.5 text-xs font-bold uppercase tracking-wide text-foreground transition-colors hover:border-accent hover:text-accent"
+                  >
+                    Load more workouts
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </section>
