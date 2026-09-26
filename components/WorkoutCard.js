@@ -25,7 +25,7 @@ export default function WorkoutCard({ workout }) {
           {muscleGroups.map((tag) => (
             <span
               key={tag}
-              className="rounded-full bg-surface-2 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent"
+              className="rounded-full bg-accent px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-accent-foreground"
             >
               {tag}
             </span>
