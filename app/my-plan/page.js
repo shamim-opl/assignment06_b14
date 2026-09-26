@@ -24,8 +24,18 @@ export default function MyPlanPage() {
 function MyPlanContent() {
   const { plan, saved, metrics, hydrated } = usePlan();
   const searchParams = useSearchParams();
-  const initialTab = searchParams.get("tab") === "saved" ? "saved" : "plan";
-  const [activeTab, setActiveTab] = useState(initialTab);
+  const tabParam = searchParams.get("tab") === "saved" ? "saved" : "plan";
+  const [activeTab, setActiveTab] = useState(tabParam);
+
+  // The navbar's Plan/Saved badges link here with ?tab=plan / ?tab=saved.
+  // Since this is the same route, Next.js doesn't remount the page on a
+  // search-param-only navigation, so re-sync the active tab when it changes
+  // (adjusting state during render, per React docs, instead of an effect).
+  const [prevTabParam, setPrevTabParam] = useState(tabParam);
+  if (tabParam !== prevTabParam) {
+    setPrevTabParam(tabParam);
+    setActiveTab(tabParam);
+  }
 
   const list = activeTab === "plan" ? plan : saved;
 
