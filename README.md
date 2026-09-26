@@ -3,7 +3,7 @@
 A dark, no-nonsense gym companion built for Batch 14, Assignment 06. Pick a lift
 from the library, lock it into today's plan, and watch the week's work add up.
 
-**Live site:** _add your Vercel URL here after deploying_
+**Live site:** [myfitlog-gym.vercel.app](https://myfitlog-gym.vercel.app)
 **Figma design:** [Existing App Screenshots](https://www.figma.com/design/v7f5IwCopO8QnlColml6zs/Existing-App-Screenshots?node-id=602-1768)
 
 ## Description
