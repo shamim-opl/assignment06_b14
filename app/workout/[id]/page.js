@@ -145,24 +145,24 @@ export default function WorkoutDetailPage() {
           />
 
           {/* CTAs */}
-          <div className="flex flex-wrap gap-3 pt-2">
+          <div className="flex gap-2 pt-2 sm:gap-3">
             <button
               type="button"
               disabled={planFull}
               onClick={() => addToPlan(workout)}
               title={planFull ? "Today's plan is full (5 lifts max)" : undefined}
-              className="flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold text-accent-foreground transition-transform hover:scale-105 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
+              className="flex flex-1 items-center justify-center gap-2 rounded-full bg-accent px-3 py-3 text-xs font-bold text-accent-foreground transition-transform hover:scale-105 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 sm:flex-none sm:px-6 sm:text-sm"
             >
-              <ListPlus size={18} />
-              Add to today&rsquo;s plan
+              <ListPlus size={18} className="shrink-0" />
+              <span className="truncate">Add to today&rsquo;s plan</span>
             </button>
             <button
               type="button"
               onClick={() => addToSaved(workout)}
-              className="flex items-center gap-2 rounded-full border border-border-soft px-6 py-3 text-sm font-bold text-foreground transition-colors hover:border-accent hover:text-accent"
+              className="flex flex-1 items-center justify-center gap-2 rounded-full border border-border-soft px-3 py-3 text-xs font-bold text-foreground transition-colors hover:border-accent hover:text-accent sm:flex-none sm:px-6 sm:text-sm"
             >
-              <Bookmark size={18} className={isSaved(workout.id) ? "fill-accent text-accent" : ""} />
-              Save for later
+              <Bookmark size={18} className={`shrink-0 ${isSaved(workout.id) ? "fill-accent text-accent" : ""}`} />
+              <span className="truncate">Save for later</span>
             </button>
           </div>
         </div>
