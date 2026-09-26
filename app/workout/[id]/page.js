@@ -73,7 +73,7 @@ export default function WorkoutDetailPage() {
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 sm:px-6 sm:py-14">
-      <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
+      <div className="grid animate-fade-up gap-10 lg:grid-cols-2 lg:gap-14">
         {/* Left: media */}
         <div className="relative aspect-square w-full overflow-hidden rounded-2xl border border-border-soft bg-surface">
           <Image
@@ -151,7 +151,7 @@ export default function WorkoutDetailPage() {
               disabled={planFull}
               onClick={() => addToPlan(workout)}
               title={planFull ? "Today's plan is full (5 lifts max)" : undefined}
-              className="flex flex-1 items-center justify-center gap-2 rounded-full bg-accent px-3 py-3 text-xs font-bold text-accent-foreground transition-transform hover:scale-105 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 sm:flex-none sm:px-6 sm:text-sm"
+              className="flex flex-1 items-center justify-center gap-2 rounded-full bg-accent px-3 py-3 text-xs font-bold text-accent-foreground transition-transform hover:scale-105 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100 sm:flex-none sm:px-6 sm:text-sm"
             >
               <ListPlus size={18} className="shrink-0" />
               <span className="truncate">Add to today&rsquo;s plan</span>
@@ -159,7 +159,7 @@ export default function WorkoutDetailPage() {
             <button
               type="button"
               onClick={() => addToSaved(workout)}
-              className="flex flex-1 items-center justify-center gap-2 rounded-full border border-border-soft px-3 py-3 text-xs font-bold text-foreground transition-colors hover:border-accent hover:text-accent sm:flex-none sm:px-6 sm:text-sm"
+              className="flex flex-1 items-center justify-center gap-2 rounded-full border border-border-soft px-3 py-3 text-xs font-bold text-foreground transition-all hover:border-accent hover:text-accent active:scale-95 sm:flex-none sm:px-6 sm:text-sm"
             >
               <Bookmark size={18} className={`shrink-0 ${isSaved(workout.id) ? "fill-accent text-accent" : ""}`} />
               <span className="truncate">Save for later</span>

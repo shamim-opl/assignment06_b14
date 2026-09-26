@@ -57,7 +57,7 @@ export default function HomePage() {
     <div>
       {/* Hero */}
       <section className="mx-auto flex max-w-6xl flex-col-reverse items-center gap-10 px-4 py-14 sm:px-6 md:flex-row md:py-20">
-        <div className="flex-1 text-center md:text-left">
+        <div className="flex-1 animate-fade-up text-center md:text-left">
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-accent">
             Workout Library
           </p>
@@ -72,14 +72,14 @@ export default function HomePage() {
           </p>
           <a
             href="#library"
-            className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wide text-accent-foreground transition-transform hover:scale-105"
+            className="mt-8 inline-flex items-center gap-2 rounded-full bg-accent px-6 py-3 text-sm font-bold uppercase tracking-wide text-accent-foreground transition-transform hover:scale-105 active:scale-95"
           >
             <Dumbbell size={18} />
             Browse Workouts
           </a>
         </div>
 
-        <div className="relative aspect-square w-56 flex-shrink-0 sm:w-72 md:w-96">
+        <div className="relative aspect-square w-56 flex-shrink-0 animate-fade-up sm:w-72 md:w-96">
           <Image
             src="/banner.png"
             alt="Anatomy illustration on a gym machine"
@@ -148,7 +148,7 @@ export default function HomePage() {
                   <button
                     type="button"
                     onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
-                    className="rounded-full border border-border-soft px-6 py-2.5 text-xs font-bold uppercase tracking-wide text-foreground transition-colors hover:border-accent hover:text-accent"
+                    className="rounded-full border border-border-soft px-6 py-2.5 text-xs font-bold uppercase tracking-wide text-foreground transition-all hover:border-accent hover:text-accent active:scale-95"
                   >
                     Load more workouts
                   </button>

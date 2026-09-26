@@ -7,14 +7,14 @@ export default function EmptyState({
   ctaHref = "/",
 }) {
   return (
-    <div className="flex flex-col items-center justify-center gap-4 rounded-xl border border-border-soft bg-surface px-6 py-16 text-center">
+    <div className="flex animate-fade-up flex-col items-center justify-center gap-4 rounded-xl border border-border-soft bg-surface px-6 py-16 text-center">
       <h3 className="font-display text-xl font-bold uppercase tracking-wide">
         {title}
       </h3>
       <p className="max-w-sm text-sm text-muted">{text}</p>
       <Link
         href={ctaHref}
-        className="rounded-full bg-accent px-6 py-2.5 text-sm font-bold text-accent-foreground transition-transform hover:scale-105"
+        className="rounded-full bg-accent px-6 py-2.5 text-sm font-bold text-accent-foreground transition-transform hover:scale-105 active:scale-95"
       >
         {ctaLabel}
       </Link>

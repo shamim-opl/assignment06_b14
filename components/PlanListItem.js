@@ -12,7 +12,7 @@ export default function PlanListItem({ workout, variant }) {
 
   return (
     <li
-      className={`flex flex-col gap-4 rounded-xl border border-border-soft bg-surface p-4 sm:flex-row sm:items-center ${
+      className={`flex animate-fade-up flex-col gap-4 rounded-xl border border-border-soft bg-surface p-4 transition-opacity sm:flex-row sm:items-center ${
         isPlan && workout.done ? "opacity-60" : ""
       }`}
     >
@@ -41,7 +41,7 @@ export default function PlanListItem({ workout, variant }) {
       <div className="flex flex-wrap items-center gap-2">
         <Link
           href={`/workout/${workout.id}`}
-          className="rounded-full border border-border-soft px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-foreground transition-colors hover:border-accent hover:text-accent"
+          className="rounded-full border border-border-soft px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-foreground transition-all hover:border-accent hover:text-accent active:scale-95"
         >
           View Details
         </Link>
@@ -50,9 +50,13 @@ export default function PlanListItem({ workout, variant }) {
           <button
             type="button"
             onClick={() => toggleDone(workout.id)}
-            className="flex items-center gap-1 rounded-full bg-surface-2 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-foreground transition-colors hover:text-accent"
+            className="flex items-center gap-1 rounded-full bg-surface-2 px-3 py-1.5 text-xs font-bold uppercase tracking-wide text-foreground transition-all hover:text-accent active:scale-95"
           >
-            {workout.done ? <CheckCircle2 size={14} className="text-accent" /> : <Circle size={14} />}
+            {workout.done ? (
+              <CheckCircle2 size={14} className="scale-110 text-accent transition-transform" />
+            ) : (
+              <Circle size={14} className="transition-transform" />
+            )}
             Mark as Done
           </button>
         )}
@@ -61,7 +65,7 @@ export default function PlanListItem({ workout, variant }) {
           type="button"
           onClick={() => (isPlan ? removeFromPlan(workout.id) : removeFromSaved(workout.id))}
           aria-label="Remove"
-          className="flex h-8 w-8 items-center justify-center rounded-full border border-border-soft text-muted transition-colors hover:border-red-400 hover:text-red-400"
+          className="flex h-8 w-8 items-center justify-center rounded-full border border-border-soft text-muted transition-all hover:scale-110 hover:border-red-400 hover:text-red-400 active:scale-90"
         >
           <X size={14} />
         </button>
